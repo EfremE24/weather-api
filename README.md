@@ -59,5 +59,5 @@ curl "http://localhost:8080/weather?temp=95"
 
 ## 7) Links (Required)
 
-GitHub Repository: 
+GitHub Repository: https://github.com/EfremE24/weather-api
 
