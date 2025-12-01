@@ -43,13 +43,16 @@ Once the script is running, open a new terminal tab and do not close the one run
 ### Health Check
 curl http://localhost:8080/health
 
+In the same terminal you ran the health check, you can use the program by using weather endpoints
+
 ### Weather Endpoint Examples
 curl "http://localhost:8080/weather?temp=72"
 
 curl "http://localhost:8080/weather?temp=-5"
 
 curl "http://localhost:8080/weather?temp=95"
-These commands will return messages describing weather conditionsfor the tempeartures you input.
+
+These commands will return messages describing weather conditions for the tempeartures you input.
 ## 4) Design Decisions
 
 - The project intentionally uses no database to remain minimal, stateless, and easy to containerize.
