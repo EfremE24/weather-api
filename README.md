@@ -31,13 +31,13 @@ After cloning the repository and navigating into the project directory, run:
 
 What this script does:
 
-Builds the Docker image (weather-api:latest)
+-Builds the Docker image (weather-api:latest)
 
-Starts the container on port 8080
+-Starts the container on port 8080
 
-Launches the Flask API inside Docker
+-Launches the Flask API inside Docker
 
-Makes the API available at: http://localhost:8080
+-Makes the API available at: http://localhost:8080
 
 Once the script is running, open a new terminal tab and do not close the one running run.sh. Test the API using curl
 ### Health Check
