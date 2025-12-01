@@ -21,12 +21,25 @@ Client (curl or browser) --> Flask Weather API --> Temperature Classification Lo
 
 ## 3) How to Run (Local)
 
-### Build the Docker Image
-docker build -t weather-api:latest
+### One-Command Run
 
-### Run the Container
-docker run --rm -p 8080:8080 weather-api:latest
+This project includes a run.sh script that allows the entire application to be started with a single command. The script automatically builds the Docker image and then starts the container.
 
+After cloning the repository and navigating into the project directory, run:
+
+./run.sh
+
+What this script does:
+
+Builds the Docker image (weather-api:latest)
+
+Starts the container on port 8080
+
+Launches the Flask API inside Docker
+
+Makes the API available at: http://localhost:8080
+
+Once the script is running, open a new terminal tab and do not close the one running run.sh. Test the API using curl
 ### Health Check
 curl http://localhost:8080/health
 
@@ -36,7 +49,7 @@ curl "http://localhost:8080/weather?temp=72"
 curl "http://localhost:8080/weather?temp=-5"
 
 curl "http://localhost:8080/weather?temp=95"
-
+These commands will return messages describing weather conditionsfor the tempeartures you input.
 ## 4) Design Decisions
 
 - The project intentionally uses no database to remain minimal, stateless, and easy to containerize.
