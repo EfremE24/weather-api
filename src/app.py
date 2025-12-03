@@ -1,7 +1,10 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify,render_template
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
+app = Flask(__name__)
 
 def classify_temperature(temp: float) -> str:
     """Return a human-readable message based on the temperature."""
@@ -22,6 +25,10 @@ def classify_temperature(temp: float) -> str:
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({"status": "ok"}), 200
+
+@app.route("/", methods=["GET"])
+def index():
+    return render_template("index.html")
 
 
 @app.route("/weather", methods=["GET"])

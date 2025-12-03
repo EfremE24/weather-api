@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Weather Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .chat-container {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 400px;
+      max-width: 90%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      background: #0077cc;
+      color: white;
+      padding: 12px 16px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .messages {
+      padding: 12px 16px;
+      flex: 1;
+      overflow-y: auto;
+      background: #fafafa;
+    }
+    .msg {
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    .msg.user {
+      text-align: right;
+    }
+    .msg.user span {
+      display: inline-block;
+      background: #0077cc;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 12px 12px 0 12px;
+    }
+    .msg.bot span {
+      display: inline-block;
+      background: #e0e0e0;
+      color: #333;
+      padding: 6px 10px;
+      border-radius: 12px 12px 12px 0;
+    }
+    .input-area {
+      display: flex;
+      border-top: 1px solid #ddd;
+      padding: 8px;
+      background: #f9f9f9;
+    }
+    .input-area input {
+      flex: 1;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    .input-area button {
+      margin-left: 8px;
+      padding: 8px 12px;
+      font-size: 14px;
+      border: none;
+      border-radius: 4px;
+      background: #0077cc;
+      color: white;
+      cursor: pointer;
+    }
+    .input-area button:disabled {
+      background: #aaa;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">Weather Chatbot</div>
+    <div class="messages" id="messages">
+      <div class="msg bot"><span>Hi! Enter a temperature in °F and I will tell you what the weather feels like.</span></div>
+    </div>
+    <div class="input-area">
+      <input id="tempInput" type="text" placeholder="Enter temperature (e.g. 72)" />
+      <button id="sendBtn">Send</button>
+    </div>
+  </div>
+
+  <script>
+    const messagesDiv = document.getElementById('messages');
+    const tempInput = document.getElementById('tempInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    function addMessage(text, sender) {
+      const div = document.createElement('div');
+      div.className = 'msg ' + sender;
+      const span = document.createElement('span');
+      span.textContent = text;
+      div.appendChild(span);
+      messagesDiv.appendChild(div);
+      messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    async function sendTemperature() {
+      const temp = tempInput.value.trim();
+      if (!temp) return;
+
+      // show user message
+      addMessage(`Temp: ${temp} °F`, 'user');
+      tempInput.value = '';
+      tempInput.focus();
+      sendBtn.disabled = true;
+
+      try {
+	const response = await fetch(`/weather?temp=${encodeURIComponent(temp)}`);
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          const errorMsg = errorData.error || `Error: HTTP ${response.status}`;
+          addMessage(errorMsg, 'bot');
+        } else {
+          const data = await response.json();
+          addMessage(`At ${data.temperature} °F: ${data.message}`, 'bot');
+        }
+      } catch (err) {
+        addMessage('Could not reach the API. Is it running?', 'bot');
+      } finally {
+        sendBtn.disabled = false;
+      }
+    }
+
+    sendBtn.addEventListener('click', sendTemperature);
+    tempInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        sendTemperature();
+      }
+    });
+  </script>
+</body>
+</html>
