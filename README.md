@@ -38,7 +38,11 @@ What this script does:
 -Launches the Flask API inside Docker
 
 -Makes the API available at: http://localhost:8080
+###Using the Chatbot
+Once the Flask server is running, open your browser and go to:
+http://localhost:8080/
 
+###Optional Manual API Testing
 Once the script is running, open a new terminal tab and do not close the one running run.sh. Test the API using curl
 ### Health Check
 curl http://localhost:8080/health
@@ -62,7 +66,7 @@ These commands will return messages describing weather conditions for the tempea
 
 ## 5) Results and Evaluation
 
-- The API was tested using curl with a variety of temperatures.
+- The API was tested using a weather chatbot on a browser and  curl with a variety of temperatures.
 - Tests covered all temperature categories including freezing, cold, nice, pretty hot, hot, and dangerously hot.
 - Screenshots showing terminal output are stored in the /assets folder.
 - The application starts quickly, performs consistently, and produces correct JSON responses.
