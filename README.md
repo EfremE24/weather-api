@@ -38,12 +38,14 @@ What this script does:
 -Launches the Flask API inside Docker
 
 -Makes the API available at: http://localhost:8080
-###Using the Chatbot
+
+### Using the Chatbot
 Once the Flask server is running, open your browser and go to:
 http://localhost:8080/
 
-###Optional Manual API Testing
+### Optional Manual API Testing
 Once the script is running, open a new terminal tab and do not close the one running run.sh. Test the API using curl
+
 ### Health Check
 curl http://localhost:8080/health
 
